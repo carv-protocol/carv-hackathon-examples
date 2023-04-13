@@ -1,0 +1,22 @@
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  color: inherit;
+  /* overflow: hidden; */
+}
+
+.svg-icon > svg,
+.svg-icon > img {
+  width: 1em;
+  height: 1em;
+}
+
+/* .svg-icon.is_online { */
+/* background-color: currentColor; */
+/* mask-image: var(--svg-icon-url);
+  -webkit-mask-image: var(--svg-icon-url);
+  mask-size: cover;
+  -webkit-mask-size: cover; */
+/* display: inline-block; */
+/* } */
