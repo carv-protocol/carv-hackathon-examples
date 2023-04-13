@@ -10,10 +10,10 @@ import UnsignUserDialog from './UnsignUserDialog';
 export const BACKEND_API = 'https://api-dev.carv.io';
 
 const OneClickLogin = () => {
-  const [data, setData] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
   const [clientId, setClientId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
+  console.log('profile:', profile);
 
   useEffect(() => {
     bc_auth.onmessage = async function (e) {
@@ -52,10 +52,16 @@ const OneClickLogin = () => {
   const carvLogin = async () => {
     const loginParams = await connectMetamask();
 
-    fetchPost(`${BACKEND_API}/auth/login`, loginParams)
+    fetchPost<any>(`${BACKEND_API}/auth/login`, loginParams)
       .then(res => {
         if (res.code === 0) {
-          setData(res.data);
+          fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
+            headers: {
+              authorization: res.data.token,
+            },
+          }).then(profile => {
+            setProfile(profile);
+          });
         } else {
           toast.error(res.msg);
         }
@@ -69,15 +75,15 @@ const OneClickLogin = () => {
   const list = [
     {
       label: 'user_id',
-      value: data?.user_id || profile?.user_id || '',
+      value: profile?.user_id || '',
     },
     {
       label: 'twitter_nickname',
-      value: data?.twitter_nickname || profile?.twitter?.name || '',
+      value: profile?.twitter?.name || '',
     },
     {
       label: 'discord_nickname',
-      value: data?.discord_nickname || profile?.discord?.username || '',
+      value: profile?.discord?.username || '',
     },
   ];
 
@@ -92,6 +98,17 @@ const OneClickLogin = () => {
       `resizable=yes,toolbar=no,location=yes,width=600,height=760,left=50,top=50`
     );
   };
+  // const discordLogin = async () => {
+  //   const openLink = await fetchGet(
+  //     `${BACKEND_API}/community/twitter/login/authorization?redirect=${location.origin}/auth`
+  //   );
+  //   setOpen(false);
+  //   window.open(
+  //     openLink as string,
+  //     'intent',
+  //     `resizable=yes,toolbar=no,location=yes,width=600,height=760,left=50,top=50`
+  //   );
+  // };
 
   const onUnsignUserDialogClose = () => {
     setClientId(null);
@@ -101,17 +118,16 @@ const OneClickLogin = () => {
       <UnsignUserDialog
         clientId={clientId}
         onClose={onUnsignUserDialogClose}
-        setData={setData}
         setProfile={setProfile}
       />
       <Stack sx={{ mt: 5 }}>
-        {data ? (
+        {profile ? (
           <>
             <Stack flexDirection={'row'} alignItems={'center'}>
-              <Avatar src={data.avatar} />
+              <Avatar src={profile?.avatar} />
               <Stack sx={{ ml: 1 }}>
                 <Typography variant="subtitle2">
-                  {data.unique_nickname}
+                  {profile?.unique_nickname}
                 </Typography>
               </Stack>
             </Stack>
@@ -140,7 +156,7 @@ const OneClickLogin = () => {
                 color: 'grey.50',
               }}
               onClick={() => {
-                setData(null);
+                setProfile(null);
               }}
             >
               Log out
@@ -188,9 +204,9 @@ const OneClickLogin = () => {
             >
               Twitter login
             </Button>
-            <Button
+            {/* <Button
               startIcon={<SvgIcon icon="svg-discord" />}
-              onClick={carvLogin}
+              // onClick={discordLogin}
               variant="outlined"
               sx={{
                 textTransform: 'capitalize',
@@ -198,7 +214,7 @@ const OneClickLogin = () => {
               }}
             >
               Discord login
-            </Button>
+            </Button> */}
           </Stack>
         </Card>
       </Dialog>

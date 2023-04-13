@@ -22,7 +22,7 @@ const AuthPage = () => {
     msg,
   });
 
-  // window.close();
+  window.close();
 
   return <div></div>;
 };

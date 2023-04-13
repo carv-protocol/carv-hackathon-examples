@@ -8,12 +8,11 @@ import { fetchGet, fetchPost } from 'src/utils/fetch';
 interface IUnsignUserDialogProps {
   clientId: number | null;
   onClose: () => void;
-  setData: (data: any) => void;
   setProfile: (profile: any) => void;
 }
 
 const UnsignUserDialog = (props: IUnsignUserDialogProps) => {
-  const { clientId, onClose, setData, setProfile } = props;
+  const { clientId, onClose, setProfile } = props;
 
   const createNewAccount = () => {
     fetchPost<any>(`${BACKEND_API}/community/signup`, {
@@ -38,13 +37,19 @@ const UnsignUserDialog = (props: IUnsignUserDialogProps) => {
   const bindExistAccount = async () => {
     const loginParams = await connectMetamask();
 
-    fetchPost(`${BACKEND_API}/auth/login`, {
+    fetchPost<any>(`${BACKEND_API}/auth/login`, {
       ...loginParams,
       client_id: clientId,
     })
       .then(res => {
         if (res.code === 0) {
-          setData(res.data);
+          fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
+            headers: {
+              authorization: res.data.token,
+            },
+          }).then(profile => {
+            setProfile(profile);
+          });
         } else {
           toast.error(res.msg);
         }
