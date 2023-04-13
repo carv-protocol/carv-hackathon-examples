@@ -1,12 +1,6 @@
-import {
-  Button,
-  Card,
-  Stack,
-  ThemeProvider,
-  Typography,
-  createTheme,
-} from '@mui/material';
-import OneClickLogin from './modules/login';
+import { ThemeProvider, Typography, createTheme } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
+import Router from './routes';
 
 const App = () => {
   const theme = createTheme({
@@ -17,27 +11,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack
-        alignItems="center"
-        sx={{
-          width: '100%',
-          minHeight: '100vh',
-          background:
-            'linear-gradient(180deg, #5865F2 0%, rgba(88, 101, 242, 0) 100%), #0C0619',
-        }}
-      >
-        <Card
-          sx={{
-            width: '50%',
-            mt: '80px',
-            p: 3,
-            borderRadius: '16px',
-            backgroundColor: '#1C1330',
-          }}
-        >
-          <OneClickLogin />
-        </Card>
-      </Stack>
+      <ToastContainer theme="dark" limit={2} pauseOnFocusLoss={false} />
+
+      <Router />
     </ThemeProvider>
   );
 };
