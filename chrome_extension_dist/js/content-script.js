@@ -6,15 +6,15 @@ function start() {
   // `;
   const auth_channel = new BroadcastChannel('auth');
 
-  document.addEventListener('carvOauthResponse', event => {
+  document.addEventListener('requestTokenLogin', event => {
     chrome.runtime.sendMessage(
       {
-        type: 'requestCarvLogin',
+        type: 'requestTokenLogin',
         data: event.detail,
       },
       res => {
         auth_channel.postMessage({
-          type: 'carvLoginResponse',
+          type: 'tokenLoginResponse',
           response: res,
         });
       }
@@ -48,5 +48,34 @@ function start() {
         }
       );
     }
+  });
+
+  document.addEventListener('requestWalletLogin', event => {
+    chrome.runtime.sendMessage(
+      {
+        type: 'requestWalletLogin',
+        data: event.detail,
+      },
+      res => {
+        auth_channel.postMessage({
+          type: 'walletLoginResponse',
+          response: res,
+        });
+      }
+    );
+  });
+  document.addEventListener('requestCreateNewAccount', event => {
+    chrome.runtime.sendMessage(
+      {
+        type: 'requestCreateNewAccount',
+        data: event.detail,
+      },
+      res => {
+        auth_channel.postMessage({
+          type: 'createNewAccountResponse',
+          response: res,
+        });
+      }
+    );
   });
 }

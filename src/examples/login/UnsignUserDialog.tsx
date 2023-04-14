@@ -14,46 +14,41 @@ const UnsignUserDialog = (props: IUnsignUserDialogProps) => {
   const { clientId, onClose, setProfile } = props;
 
   const createNewAccount = () => {
-    fetchPost<any>(`${BACKEND_API}/community/signup`, {
-      client_id: clientId,
-    })
-      .then(res => {
-        console.log('res1:', res);
-        if (res.code === 0) {
-          fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
-            headers: {
-              authorization: res.data.token,
-            },
-          }).then(profile => {
-            setProfile(profile);
-          });
-        } else {
-          toast.error(res.msg);
-        }
-      })
-      .finally(onClose);
+    const event = new CustomEvent('requestCreateNewAccount', {
+      detail: {
+        client_id: clientId,
+      },
+    });
+    document.dispatchEvent(event);
+    // fetchPost<any>(`${BACKEND_API}/community/signup`, {
+    //   client_id: clientId,
+    // })
+    //   .then(res => {
+    //     console.log('res1:', res);
+    //     if (res.code === 0) {
+    //       fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
+    //         headers: {
+    //           authorization: res.data.token,
+    //         },
+    //       }).then(profile => {
+    //         setProfile(profile);
+    //       });
+    //     } else {
+    //       toast.error(res.msg);
+    //     }
+    //   })
+    //   .finally(onClose);
   };
   const bindExistAccount = async () => {
     const loginParams = await connectMetamask();
 
-    fetchPost<any>(`${BACKEND_API}/auth/login`, {
-      ...loginParams,
-      client_id: clientId,
-    })
-      .then(res => {
-        if (res.code === 0) {
-          fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
-            headers: {
-              authorization: res.data.token,
-            },
-          }).then(profile => {
-            setProfile(profile);
-          });
-        } else {
-          toast.error(res.msg);
-        }
-      })
-      .finally(onClose);
+    const event = new CustomEvent('requestWalletLogin', {
+      detail: {
+        ...loginParams,
+        client_id: clientId,
+      },
+    });
+    document.dispatchEvent(event);
   };
 
   return (

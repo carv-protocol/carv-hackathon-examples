@@ -2,7 +2,6 @@ import { Avatar, Button, Card, Dialog, Stack, Typography } from '@mui/material';
 import connectMetamask from 'src/auth/connectMetamask';
 import { useEffect, useState } from 'react';
 import SvgIcon from 'src/components/svg-Icon';
-import { fetchGet, fetchPost } from 'src/utils/fetch';
 import { toast } from 'react-toastify';
 import UnsignUserDialog from './UnsignUserDialog';
 
@@ -28,7 +27,7 @@ const OneClickLogin = () => {
           toast.error(res.msg);
         }
       }
-      if (data.type === 'carvLoginResponse') {
+      if (data.type === 'tokenLoginResponse') {
         if (res.code === 0) {
           setProfile(res.data);
         } else if (res.code === 2040) {
@@ -42,6 +41,17 @@ const OneClickLogin = () => {
           toast.error(res.msg);
         }
       }
+      if (
+        ['createNewAccountResponse', 'walletLoginResponse'].includes(data.type)
+      ) {
+        if (res.code === 0) {
+          setProfile(res.data);
+        } else {
+          toast.error(res.msg);
+        }
+        setOpen(false);
+        setClientId(null);
+      }
     };
     return () => {
       auth_channel.onmessage = null;
@@ -51,21 +61,10 @@ const OneClickLogin = () => {
   const carvLogin = async () => {
     const loginParams = await connectMetamask();
 
-    fetchPost<any>(`${BACKEND_API}/auth/login`, loginParams)
-      .then(res => {
-        if (res.code === 0) {
-          fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
-            headers: {
-              authorization: res.data.token,
-            },
-          }).then(profile => {
-            setProfile(profile);
-          });
-        } else {
-          toast.error(res.msg);
-        }
-      })
-      .finally(onClose);
+    const event = new CustomEvent('requestWalletLogin', {
+      detail: loginParams,
+    });
+    document.dispatchEvent(event);
   };
   const onClose = () => {
     setOpen(false);

@@ -24,7 +24,7 @@ const AuthPage = () => {
   // auth_channel.postMessage(data);
 
   setTimeout(() => {
-    const event = new CustomEvent('carvOauthResponse', {
+    const event = new CustomEvent('requestTokenLogin', {
       detail: data,
     });
     document.dispatchEvent(event);
