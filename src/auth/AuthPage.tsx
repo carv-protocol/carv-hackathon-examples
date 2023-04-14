@@ -28,9 +28,11 @@ const AuthPage = () => {
       detail: data,
     });
     document.dispatchEvent(event);
-  }, 1000);
 
-  // window.close();
+    // setTimeout(() => {
+    //   window.close();
+    // });
+  }, 1000);
 
   return <div></div>;
 };

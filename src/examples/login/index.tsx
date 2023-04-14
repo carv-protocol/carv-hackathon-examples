@@ -19,11 +19,11 @@ const OneClickLogin = () => {
       const data = e.data;
       const res = e.data.response;
 
+      onClose();
+
       console.log('channel res:', res);
       if (data.type === 'openLinkResponse') {
-        if (res.code === 0) {
-          setOpen(false);
-        } else {
+        if (res.code !== 0) {
           toast.error(res.msg);
         }
       }
@@ -49,7 +49,6 @@ const OneClickLogin = () => {
         } else {
           toast.error(res.msg);
         }
-        setOpen(false);
         setClientId(null);
       }
     };
@@ -59,6 +58,7 @@ const OneClickLogin = () => {
   }, []);
 
   const carvLogin = async () => {
+    console.log('carvLogin');
     const loginParams = await connectMetamask();
 
     const event = new CustomEvent('requestWalletLogin', {

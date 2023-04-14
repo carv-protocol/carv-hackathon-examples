@@ -19,6 +19,8 @@ function fetchPost(url, body) {
   }).then(res => res.json());
 }
 
+let connectedTabs = [];
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log('收到来自content-script的消息：');
   console.log(request, sender, sendResponse);
@@ -27,6 +29,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   if (type === 'requestOpenLink') {
     if (data.type === 'twitter') {
+      connectedTabs.push(sender.tab.id);
+      // connectedTabs.set('twitter', sender.tab.id);
       fetch(
         `${BACKEND_API}/community/twitter/login/authorization?redirect=${REDIRECT_URL}`
       )
@@ -47,18 +51,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           },
         })
           .then(res => res.json())
-          .then(res => sendResponse(res));
+          .then(res => {
+            // return sendResponse(res)
+            connectedTabs.forEach(tabId => {
+              chrome.tabs.sendMessage(tabId, res);
+            });
+          });
       }
-    } else if (res.code === 2040) {
-      sendResponse(res);
-      // const client_id = res.data.client_id;
-      // if (client_id) {
-      //   setClientId(client_id);
-      // } else {
-      //   toast.error('client_id is empty');
-      // }
     } else {
-      sendResponse(res);
+      connectedTabs.forEach(tabId => {
+        chrome.tabs.sendMessage(tabId, res);
+      });
     }
   }
 
@@ -91,4 +94,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   // 返回 true，表示我们将异步地使用 sendResponse
   return true;
+});
+
+chrome.tabs.onRemoved.addListener(tabId => {
+  connectedTabs = [];
 });

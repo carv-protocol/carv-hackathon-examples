@@ -1,11 +1,13 @@
-start();
+// document.body.innerHTML = `
+// <div id="root"></div>
+// `;
+const auth_channel = new BroadcastChannel('auth');
 
-function start() {
-  // document.body.innerHTML = `
-  // <div id="root"></div>
-  // `;
-  const auth_channel = new BroadcastChannel('auth');
+addCustomEventListener();
 
+addChromeListener();
+
+function addCustomEventListener() {
   document.addEventListener('requestTokenLogin', event => {
     chrome.runtime.sendMessage(
       {
@@ -77,5 +79,14 @@ function start() {
         });
       }
     );
+  });
+}
+
+function addChromeListener() {
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    auth_channel.postMessage({
+      type: 'tokenLoginResponse',
+      response: request,
+    });
   });
 }
