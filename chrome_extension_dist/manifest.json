@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "carv-hackathon-examples",
+  "version": "1.0.0",
+  "description": "carv hackathon extension demo",
+  "icons": {
+    "16": "img/carv.png",
+    "48": "img/carv.png",
+    "128": "img/carv.png"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": "img/carv.png"
+    // "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "js/content-script.js"
+        // "assets/index.js"
+      ]
+      // "css": ["assets/index.css"]
+    }
+  ],
+  "permissions": ["webRequest", "webRequestBlocking", "storage", "http://*/*"]
+}

@@ -4,48 +4,47 @@ import { useEffect, useState } from 'react';
 import SvgIcon from 'src/components/svg-Icon';
 import { fetchGet, fetchPost } from 'src/utils/fetch';
 import { toast } from 'react-toastify';
-import { bc_auth } from 'src/auth/AuthPage';
 import UnsignUserDialog from './UnsignUserDialog';
 
 export const BACKEND_API = 'https://api-dev.carv.io';
+
+const auth_channel = new BroadcastChannel('auth');
 
 const OneClickLogin = () => {
   const [profile, setProfile] = useState<any>(null);
   const [clientId, setClientId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
-  console.log('profile:', profile);
 
   useEffect(() => {
-    bc_auth.onmessage = async function (e) {
-      const res = e.data;
-      console.log('res:', res);
-      if (res.code === 0) {
-        const token = res.data.token;
+    auth_channel.onmessage = async function (e) {
+      const data = e.data;
+      const res = e.data.response;
 
-        if (token) {
-          fetchGet(`${BACKEND_API}/users/profile?user_id=me`, {
-            headers: {
-              authorization: token,
-            },
-          }).then(profile => {
-            setProfile(profile);
-          });
+      console.log('channel res:', res);
+      if (data.type === 'openLinkResponse') {
+        if (res.code === 0) {
+          setOpen(false);
         } else {
-          toast.error('Token is empty');
+          toast.error(res.msg);
         }
-      } else if (res.code === 2040) {
-        const client_id = res.data.client_id;
-        if (client_id) {
-          setClientId(client_id);
+      }
+      if (data.type === 'carvLoginResponse') {
+        if (res.code === 0) {
+          setProfile(res.data);
+        } else if (res.code === 2040) {
+          const client_id = res.data.client_id;
+          if (client_id) {
+            setClientId(client_id);
+          } else {
+            toast.error('client_id is empty');
+          }
         } else {
-          toast.error('client_id is empty');
+          toast.error(res.msg);
         }
-      } else {
-        toast.error(res.msg);
       }
     };
     return () => {
-      bc_auth.onmessage = null;
+      auth_channel.onmessage = null;
     };
   }, []);
 
@@ -88,27 +87,11 @@ const OneClickLogin = () => {
   ];
 
   const twitterLogin = async () => {
-    const openLink = await fetchGet(
-      `${BACKEND_API}/community/twitter/login/authorization?redirect=${location.origin}/auth`
-    );
-    setOpen(false);
-    window.open(
-      openLink as string,
-      'intent',
-      `resizable=yes,toolbar=no,location=yes,width=600,height=760,left=50,top=50`
-    );
+    const event = new CustomEvent('requestOpenLink', {
+      detail: 'twitter',
+    });
+    document.dispatchEvent(event);
   };
-  // const discordLogin = async () => {
-  //   const openLink = await fetchGet(
-  //     `${BACKEND_API}/community/twitter/login/authorization?redirect=${location.origin}/auth`
-  //   );
-  //   setOpen(false);
-  //   window.open(
-  //     openLink as string,
-  //     'intent',
-  //     `resizable=yes,toolbar=no,location=yes,width=600,height=760,left=50,top=50`
-  //   );
-  // };
 
   const onUnsignUserDialogClose = () => {
     setClientId(null);

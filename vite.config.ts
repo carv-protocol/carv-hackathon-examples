@@ -10,6 +10,15 @@ export default defineConfig(({ command, mode }) => {
   const isProd = mode === 'production';
 
   return {
+    build: {
+      outDir: 'dist',
+      rollupOptions: {
+        output: {
+          entryFileNames: 'assets/[name].js',
+          assetFileNames: 'assets/[name].css',
+        },
+      },
+    },
     plugins: [
       react(),
       WindiCSS(),

@@ -1,7 +1,6 @@
 import { Button, Card, Dialog, Stack, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import connectMetamask from 'src/auth/connectMetamask';
-import SvgIcon from 'src/components/svg-Icon';
 import { BACKEND_API } from '.';
 import { fetchGet, fetchPost } from 'src/utils/fetch';
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import OneClickLogin from './login';
 
 const ExamplesPage = () => {
+  console.log('ExamplesPage');
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -33,10 +34,10 @@ const ExamplesPage = () => {
           alignItems={'center'}
           justifyContent={'space-around'}
         >
-          <Tabs value={value} onChange={handleChange}>
+          {/* <Tabs value={value} onChange={handleChange}>
             <Tab label="Login" sx={{ textTransform: 'capitalize' }} />
             <Tab label="Highlights" sx={{ textTransform: 'capitalize' }} />
-          </Tabs>
+          </Tabs> */}
           <OneClickLogin />
         </Stack>
       </Card>

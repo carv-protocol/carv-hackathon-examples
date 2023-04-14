@@ -1,7 +1,6 @@
-import { Stack } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
-export const bc_auth = new BroadcastChannel('auth');
+const auth_channel = new BroadcastChannel('auth');
 
 const AuthPage = () => {
   const l = useLocation();
@@ -13,16 +12,25 @@ const AuthPage = () => {
   const msg = sp.get('msg');
   const client_id = sp.get('client_id');
 
-  bc_auth.postMessage({
+  const data = {
     code: code ? Number(code) : -1,
     data: {
       token,
       client_id,
     },
     msg,
-  });
+  };
 
-  window.close();
+  // auth_channel.postMessage(data);
+
+  setTimeout(() => {
+    const event = new CustomEvent('carvOauthResponse', {
+      detail: data,
+    });
+    document.dispatchEvent(event);
+  }, 1000);
+
+  // window.close();
 
   return <div></div>;
 };
