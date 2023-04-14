@@ -14,8 +14,8 @@ export default defineConfig(({ command, mode }) => {
       outDir: 'dist',
       rollupOptions: {
         output: {
-          entryFileNames: 'assets/[name].js',
-          assetFileNames: 'assets/[name].css',
+          entryFileNames: 'logic/[name].js',
+          assetFileNames: 'logic/[name].css',
         },
       },
     },

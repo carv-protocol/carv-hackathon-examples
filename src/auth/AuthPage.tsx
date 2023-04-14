@@ -29,9 +29,9 @@ const AuthPage = () => {
     });
     document.dispatchEvent(event);
 
-    // setTimeout(() => {
-    //   window.close();
-    // });
+    setTimeout(() => {
+      window.close();
+    }, 500);
   }, 1000);
 
   return <div></div>;
