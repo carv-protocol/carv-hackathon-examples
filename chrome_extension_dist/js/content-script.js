@@ -1,10 +1,14 @@
 const auth_channel = new BroadcastChannel('auth');
 
+const inject_site_urls = ['www.baidu.com'];
+
 setTimeout(() => {
-  document.body.innerHTML = `
-<div id="root"></div>
-`;
-  injectCustomJs();
+  if (inject_site_urls.includes(location.host)) {
+    document.body.innerHTML = `
+    <div id="root"></div>
+    `;
+    injectCustomJs();
+  }
 }, 2000);
 
 addCustomEventListener();
