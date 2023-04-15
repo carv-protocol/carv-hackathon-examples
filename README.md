@@ -20,6 +20,8 @@
 
 打开[百度搜索页面](https://www.baidu.com/)即可看到插件注入的页面将原百度页面覆盖
 
+![demo效果](/src/assets/demo效果.png 'demo效果')
+
 ## 二、用户一键登录的时序图
 
 ![一键登录时序图](/src/assets/carv-hackathon-examples.jpg '一键登录时序图.png')
