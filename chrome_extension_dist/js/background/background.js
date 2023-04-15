@@ -28,8 +28,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   const { type, data } = request;
 
   if (type === 'requestOpenLink') {
+    connectedTabs.push(sender.tab.id);
+
     if (data.type === 'twitter') {
-      connectedTabs.push(sender.tab.id);
       // connectedTabs.set('twitter', sender.tab.id);
       fetch(
         `${BACKEND_API}/community/twitter/login/authorization?redirect=${REDIRECT_URL}`
