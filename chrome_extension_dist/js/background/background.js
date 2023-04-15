@@ -1,5 +1,6 @@
 const BACKEND_API = 'https://api-dev.carv.io';
-const REDIRECT_URL = 'http://localhost:3333/auth';
+// const REDIRECT_URL = 'http://localhost:3333/auth';
+const REDIRECT_URL = 'https://carv.io/auth';
 
 function fetchGet(url, init = {}) {
   return fetch(url, {
