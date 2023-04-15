@@ -28,10 +28,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   const { type, data } = request;
 
   if (type === 'requestOpenLink') {
-    connectedTabs.push(sender.tab.id);
+    if (!connectedTabs.includes(sender.tab.id)) {
+      connectedTabs.push(sender.tab.id);
+    }
 
     if (data.type === 'twitter') {
-      // connectedTabs.set('twitter', sender.tab.id);
       fetch(
         `${BACKEND_API}/community/twitter/login/authorization?redirect=${REDIRECT_URL}`
       )
@@ -95,8 +96,4 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   // 返回 true，表示我们将异步地使用 sendResponse
   return true;
-});
-
-chrome.tabs.onRemoved.addListener(tabId => {
-  connectedTabs = [];
 });
