@@ -22,4 +22,4 @@
 
 ## 二、用户一键登录的时序图
 
-![一键登录时序图](https://public.feihan.cc/temp/carv-hackathon-examples.jpg '一键登录时序图.png')
+![一键登录时序图](https://ibb.co/qYH354J '一键登录时序图.png')
