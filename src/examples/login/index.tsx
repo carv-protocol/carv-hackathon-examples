@@ -20,6 +20,7 @@ const OneClickLogin = () => {
       const res = e.data.response;
 
       onClose();
+      onUnsignUserDialogClose();
 
       console.log('channel res:', res);
       if (data.type === 'openLinkResponse') {
@@ -49,7 +50,6 @@ const OneClickLogin = () => {
         } else {
           toast.error(res.msg);
         }
-        setClientId(null);
       }
     };
     return () => {
@@ -88,6 +88,12 @@ const OneClickLogin = () => {
   const twitterLogin = async () => {
     const event = new CustomEvent('requestOpenLink', {
       detail: 'twitter',
+    });
+    document.dispatchEvent(event);
+  };
+  const discordLogin = async () => {
+    const event = new CustomEvent('requestOpenLink', {
+      detail: 'discord',
     });
     document.dispatchEvent(event);
   };
@@ -186,9 +192,9 @@ const OneClickLogin = () => {
             >
               Twitter login
             </Button>
-            {/* <Button
+            <Button
               startIcon={<SvgIcon icon="svg-discord" />}
-              // onClick={discordLogin}
+              onClick={discordLogin}
               variant="outlined"
               sx={{
                 textTransform: 'capitalize',
@@ -196,7 +202,7 @@ const OneClickLogin = () => {
               }}
             >
               Discord login
-            </Button> */}
+            </Button>
           </Stack>
         </Card>
       </Dialog>

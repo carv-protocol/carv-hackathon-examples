@@ -34,7 +34,7 @@ function addCustomEventListener() {
   document.addEventListener('requestOpenLink', event => {
     const type = event.detail;
 
-    if (type === 'twitter') {
+    if (['twitter', 'discord'].includes(type)) {
       chrome.runtime.sendMessage(
         {
           type: 'requestOpenLink',

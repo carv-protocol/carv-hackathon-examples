@@ -1,5 +1,6 @@
 const BACKEND_API = 'https://api-dev.carv.io';
 // const REDIRECT_URL = 'http://localhost:3333/auth';
+// const REDIRECT_URL = 'https://dev.carv.io/auth';
 const REDIRECT_URL = 'https://carv.io/auth';
 
 function fetchGet(url, init = {}) {
@@ -36,6 +37,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (data.type === 'twitter') {
       fetch(
         `${BACKEND_API}/community/twitter/login/authorization?redirect=${REDIRECT_URL}`
+      )
+        .then(res => res.json())
+        .then(res => sendResponse(res));
+    }
+    if (data.type === 'discord') {
+      fetch(
+        `${BACKEND_API}/community/discord/login/authorization?redirect=${REDIRECT_URL}`
       )
         .then(res => res.json())
         .then(res => sendResponse(res));
@@ -78,6 +86,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }).then(res => {
           sendResponse(res);
         });
+      } else {
+        sendResponse(res);
       }
     });
   }
@@ -91,6 +101,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }).then(res => {
           sendResponse(res);
         });
+      } else {
+        sendResponse(res);
       }
     });
   }
