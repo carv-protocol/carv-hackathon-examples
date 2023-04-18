@@ -5,7 +5,7 @@ import SvgIcon from 'src/components/svg-Icon';
 import { toast } from 'react-toastify';
 import UnsignUserDialog from './UnsignUserDialog';
 
-export const BACKEND_API = 'https://api-dev.carv.io';
+export const BACKEND_API = 'https://api.carv.io';
 
 const auth_channel = new BroadcastChannel('auth');
 
