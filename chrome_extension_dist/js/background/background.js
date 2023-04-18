@@ -1,4 +1,5 @@
-const BACKEND_API = 'https://api-dev.carv.io';
+// const BACKEND_API = 'https://api-dev.carv.io';
+const BACKEND_API = 'https://api.carv.io';
 // const REDIRECT_URL = 'http://localhost:3333/auth';
 // const REDIRECT_URL = 'https://dev.carv.io/auth';
 const REDIRECT_URL = 'https://carv.io/auth';
