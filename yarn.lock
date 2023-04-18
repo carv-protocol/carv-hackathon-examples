@@ -696,6 +696,13 @@
   resolved "https://registry.npmjs.org/@mui/core-downloads-tracker/-/core-downloads-tracker-5.12.0.tgz"
   integrity sha512-1hoFIdlLI0sG+mkJgm70FjgIVpfLcE1vxPtNolg1tLFXrvbXGUYp9NHy3d6c41nDkg2OajuVS+Mn6A8UirFuMw==
 
+"@mui/icons-material@^5.11.16":
+  version "5.11.16"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.11.16.tgz#417fa773c56672e39d6ccfed9ac55591985f0d38"
+  integrity sha512-oKkx9z9Kwg40NtcIajF9uOXhxiyTZrrm9nmIJ4UjkU2IdHpd4QVLbCc/5hZN/y0C6qzi2Zlxyr9TGddQx2vx2A==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
+
 "@mui/material@^5.12.0":
   version "5.12.0"
   resolved "https://registry.npmjs.org/@mui/material/-/material-5.12.0.tgz"
@@ -4387,7 +4394,7 @@ vite-plugin-svg-icons@^2.0.1:
 
 vite-plugin-windicss@^1.8.10:
   version "1.8.10"
-  resolved "https://registry.npmjs.org/vite-plugin-windicss/-/vite-plugin-windicss-1.8.10.tgz"
+  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-1.8.10.tgz#a0e022c5d3def185fb2458a0ba41fc140421ddcb"
   integrity sha512-scywsuzo46lcTBohspmF0WiwhWEte6p+OUVrX4yr7VMRvLHMHVfLtJReyD5pppjijG7YOwVsZn7XBWWZtF658Q==
   dependencies:
     "@windicss/plugin-utils" "1.8.10"
@@ -4675,7 +4682,7 @@ which-typed-array@^1.1.2:
 
 windicss@^3.5.6:
   version "3.5.6"
-  resolved "https://registry.npmjs.org/windicss/-/windicss-3.5.6.tgz"
+  resolved "https://registry.yarnpkg.com/windicss/-/windicss-3.5.6.tgz#30a34da76894d952a96c9a1921f2e91e13932183"
   integrity sha512-P1mzPEjgFMZLX0ZqfFht4fhV/FX8DTG7ERG1fBLiWvd34pTLVReS5CVsewKn9PApSgXnVfPWwvq+qUsRwpnwFA==
 
 wrappy@1:

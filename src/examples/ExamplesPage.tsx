@@ -1,14 +1,15 @@
 import { Button, Card, Stack, Tab, Tabs } from '@mui/material';
 import { useEffect, useState } from 'react';
 import OneClickLogin from './login';
+import Highlights from './highlights';
 
 const ExamplesPage = () => {
-  console.log('ExamplesPage');
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
   return (
     <Stack
       alignItems="center"
@@ -34,11 +35,12 @@ const ExamplesPage = () => {
           alignItems={'center'}
           justifyContent={'space-around'}
         >
-          {/* <Tabs value={value} onChange={handleChange}>
+          <Tabs value={value} onChange={handleChange}>
             <Tab label="Login" sx={{ textTransform: 'capitalize' }} />
             <Tab label="Highlights" sx={{ textTransform: 'capitalize' }} />
-          </Tabs> */}
-          <OneClickLogin />
+          </Tabs>
+          {value === 0 && <OneClickLogin />}
+          {value === 1 && <Highlights />}
         </Stack>
       </Card>
     </Stack>
