@@ -1,4 +1,5 @@
 import UploadImage from './UploadImage';
+import UploadText from './UploadText';
 import UploadVideo from './UploadVideo';
 
 const Highlights = () => {
@@ -6,6 +7,7 @@ const Highlights = () => {
     <>
       <UploadImage />
       <UploadVideo />
+      <UploadText />
     </>
   );
 };

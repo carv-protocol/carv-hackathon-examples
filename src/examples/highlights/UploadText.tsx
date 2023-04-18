@@ -5,24 +5,18 @@ import { uploadFile } from './uploadFile';
 import { S3_HOST } from 'src/constants';
 import { useState } from 'react';
 
-const UploadVideo = () => {
-  const [videoUrlList, setVideoUrlList] = useState<string[]>([]);
+const UploadText = () => {
+  const [textUrlList, setTextUrlList] = useState<string[]>([]);
 
-  const onVideoSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onTextSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
     if (selectedFiles) {
       const file = selectedFiles[0];
 
-      if (file.size > 31457280) {
-        toast.warning(
-          `Video ${file.name} exceeds the maximum upload limit of 30MB.`
-        );
-      } else {
-        const item = await uploadFile(file, 'highlights_dev');
-        const videoUrl = S3_HOST + '/' + item;
+      const item = await uploadFile(file, 'highlights_dev');
+      const textUrl = S3_HOST + '/' + item;
 
-        setVideoUrlList([...videoUrlList, videoUrl]);
-      }
+      setTextUrlList([...textUrlList, textUrl]);
     }
   };
 
@@ -34,33 +28,34 @@ const UploadVideo = () => {
         gap={3}
         flexWrap={'wrap'}
       >
-        <Typography variant="subtitle1">upload video: </Typography>
-        {videoUrlList.map((videoUrl, i) =>
-          videoUrl ? (
-            <video width="300" height="180" controls>
-              <source src={videoUrl} type="video/mp4" />
-            </video>
-          ) : (
-            'loading...'
-          )
-        )}
+        <Typography variant="subtitle1">upload text: </Typography>
+        <Stack>
+          {textUrlList.map((textUrl, i) =>
+            textUrl ? (
+              <Typography variant="body1" key={textUrl}>
+                {textUrl}
+              </Typography>
+            ) : (
+              'loading...'
+            )
+          )}
+        </Stack>
         <Box
           className="relative flex-row-cc cursor-pointer"
           sx={{
             bgcolor: 'neutral.800',
             border: theme => `1px dashed ${theme.palette.grey[500]}`,
             cursor: 'pointer',
-            height: 180,
-            width: 300,
+            height: 48,
+            width: 48,
           }}
         >
           <AddIcon className="cursor-pointer" />
           <input
             type="file"
-            accept="video/*"
-            // multiple
+            accept="text/*"
             className="w-[48px] h-[48px] absolute left-0 top-0 cursor-pointer opacity-0"
-            onChange={onVideoSelect}
+            onChange={onTextSelect}
           ></input>
         </Box>
       </Stack>
@@ -68,4 +63,4 @@ const UploadVideo = () => {
   );
 };
 
-export default UploadVideo;
+export default UploadText;

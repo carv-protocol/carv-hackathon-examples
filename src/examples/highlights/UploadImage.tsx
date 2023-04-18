@@ -41,8 +41,8 @@ const UploadImage = () => {
               key={i}
               className="relative"
               sx={{
-                width: 48,
-                height: 48,
+                width: 200,
+                height: 112,
                 backgroundImage: `url(${imageUrl})`,
                 backgroundSize: 'cover',
                 '&:hover .icon-close_button': {
@@ -75,8 +75,8 @@ const UploadImage = () => {
             bgcolor: 'neutral.800',
             border: theme => `1px dashed ${theme.palette.grey[500]}`,
             cursor: 'pointer',
-            height: 48,
-            width: 48,
+            height: 112,
+            width: 200,
           }}
         >
           <AddIcon className="cursor-pointer" />
