@@ -19,7 +19,7 @@
 
 **5. Preview of demo extension**
 
-Open [Twitter](https://www.youtube.com/) in your browser and you will see that the web page will be replaced by injected extension.
+Open [YouTube](https://www.youtube.com/) in your browser and you will see that the web page will be replaced by injected extension.
 
 ![demo-preview](/src/assets/demo-preview.png 'demo-preview')
 
