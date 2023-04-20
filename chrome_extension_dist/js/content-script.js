@@ -1,6 +1,6 @@
 const auth_channel = new BroadcastChannel('auth');
 
-const inject_site_urls = ['www.baidu.com'];
+const inject_site_urls = ['www.youtube.com'];
 
 setTimeout(() => {
   if (inject_site_urls.includes(location.host)) {
