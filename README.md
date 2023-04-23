@@ -1,27 +1,28 @@
 # hackathon-examples
 
-## 一、运行步骤
+## Getting Started
 
-**1、安装依赖**
+**1. Install dependencies**
 
 > yarn
 
-**2、打包文件**
+**2. Build the extension**
 
 > yarn build
 
-**3、将打包后的 dist/logic 移动到 chrome_extension_dist/logic**
+**3. Move build files under dist/logic to chrome_extension_dist/logic**
 
 ![move dir](https://public.feihan.cc/temp/demo_01.jpeg 'demo_01.jpeg')
 
-**4、扩展程序加载 chrome_extension_dist 文件**
+**4. Load build files under chrome_extension_dist in Chrome extesion manager**
+![load-extension](/src/assets/load-extension.jpg 'load-extension')
 
-**5、预览 demo 效果**
+**5. Preview of demo extension**
 
-打开[百度搜索页面](https://www.baidu.com/)即可看到插件注入的页面将原百度页面覆盖
+Open [YouTube](https://www.youtube.com/) in your browser and you will see that the web page will be replaced by injected extension.
 
-![demo效果](/src/assets/demo效果.png 'demo效果')
+![demo-preview](/src/assets/demo-preview.png 'demo-preview')
 
-## 二、用户一键登录的时序图
+## Login Flow
 
-![一键登录时序图](/src/assets/carv-hackathon-examples.jpg '一键登录时序图.png')
+![login-flow](/src/assets/login-flow.png 'login-flow.png')

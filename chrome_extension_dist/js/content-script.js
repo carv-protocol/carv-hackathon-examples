@@ -1,6 +1,6 @@
 const auth_channel = new BroadcastChannel('auth');
 
-const inject_site_urls = ['www.baidu.com'];
+const inject_site_urls = ['www.youtube.com'];
 
 setTimeout(() => {
   if (inject_site_urls.includes(location.host)) {
@@ -99,15 +99,15 @@ function addChromeListener() {
   });
 }
 
-// 向页面注入JS
+// inject js into page
 function injectCustomJs(jsPath) {
   jsPath = jsPath || 'logic/index.js';
   var temp = document.createElement('script');
   temp.setAttribute('type', 'text/javascript');
-  // 获得的地址类似：chrome-extension://ihcokhadfjfchaeagdoclpnjdiokfakg/logic/index.js
+  // src url should look something ike chrome-extension://ihcokhadfjfchaeagdoclpnjdiokfakg/logic/index.js
   temp.src = chrome.extension.getURL(jsPath);
   temp.onload = function () {
-    // 放在页面不好看，执行完后移除掉
+    // clean up after execution
     this.parentNode.removeChild(this);
   };
   document.body.appendChild(temp);

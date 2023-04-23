@@ -1,7 +1,4 @@
-// const BACKEND_API = 'https://api-dev.carv.io';
 const BACKEND_API = 'https://api.carv.io';
-// const REDIRECT_URL = 'http://localhost:3333/auth';
-// const REDIRECT_URL = 'https://dev.carv.io/auth';
 const REDIRECT_URL = 'https://carv.io/auth';
 
 function fetchGet(url, init = {}) {
@@ -25,7 +22,7 @@ function fetchPost(url, body) {
 let connectedTabs = [];
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log('收到来自content-script的消息：');
+  console.log('received message from content-script: ');
   console.log(request, sender, sendResponse);
 
   const { type, data } = request;
@@ -108,6 +105,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     });
   }
 
-  // 返回 true，表示我们将异步地使用 sendResponse
+  // return true, indicating we will use async sendResponse
   return true;
 });

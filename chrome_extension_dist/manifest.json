@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "carv-hackathon-examples",
+  "name": "CARV Demo Extension",
   "version": "1.0.0",
-  "description": "carv hackathon extension demo",
+  "description": "CARV demo extension for hackathon",
   "icons": {
     "16": "img/carv.png",
     "48": "img/carv.png",
