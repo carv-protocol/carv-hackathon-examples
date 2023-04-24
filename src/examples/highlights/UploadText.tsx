@@ -54,7 +54,7 @@ const UploadText = () => {
           <input
             type="file"
             accept="text/*"
-            className="w-[48px] h-[48px] absolute left-0 top-0 cursor-pointer opacity-0"
+            className="w-full h-full absolute left-0 top-0 cursor-pointer opacity-0"
             onChange={onTextSelect}
           ></input>
         </Box>
