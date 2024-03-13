@@ -4,9 +4,9 @@ import path from 'path';
 import WindiCSS from 'vite-plugin-windicss';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
-const getPath = (url: string) => path.resolve(__dirname, url);
+const getPath = (url) => path.resolve(__dirname, url);
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const isProd = mode === 'production';
 
   return {
@@ -38,3 +38,4 @@ export default defineConfig(({ command, mode }) => {
     },
   };
 });
+
